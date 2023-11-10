@@ -2,7 +2,7 @@
 
 LiquidCrystal lcd_1(8, 9, 4, 5, 6, 7);
 
-// FRECUENCIAS ANALOGICAS:
+// VALORES ANALOGICOS:
 // SELECT (640 A 668)
 // UP (99 A 127)
 // DOWN (255 A 280)
@@ -161,8 +161,6 @@ void loop() {
           mostrarHora = HIGH;
         }
   }
-  lastButtonState_asc  = estado_pulsador_asc;
-  
   
   // Control para no ingresar numeros negativos
   // BOTON DOWN
