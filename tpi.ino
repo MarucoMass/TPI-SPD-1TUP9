@@ -83,6 +83,7 @@ int contadorMins = 0;
 int contadorHs = 0;
 int hrI;
 int minI;
+int botonAnalo;
 
 //VARIABLES PARA EL RELE
 const int rele = 13;
