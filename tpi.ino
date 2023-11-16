@@ -174,7 +174,7 @@ void loop() {
   }
   
   
-  boton = botones_LCD(botonAnalo);
+  String boton = botones_LCD(botonAnalo);
   
   
   // para que el contador no se exceda de 60
