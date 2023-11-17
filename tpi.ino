@@ -144,7 +144,7 @@ void loop() {
     }
   }
   
-  if (delta_tiempo >= 1000 && analogRead(A0) >= 1023){
+  if (delta_tiempo >= 1000){
     if(!mostrarHora)
     {
       lcd_1.clear();
@@ -174,13 +174,10 @@ void loop() {
     contadorMins = 0;
   }
   
-  
-  String boton = botones_LCD(botonAnalo);
-  
-  
   // para que el contador no se exceda de 60
   // BOTON UP
-  if (boton == "btnArriba"){
+  if (analogRead(A0) > 99 && analogRead(A0) < 127){
+    delay(200);
     if (contador < 60){
           lcd_1.clear();
           contador++;
@@ -195,7 +192,8 @@ void loop() {
   
   // Control para no ingresar numeros negativos
   // BOTON DOWN
-  if (boton == "btnAbajo"){
+  if (analogRead(A0) > 255 && analogRead(A0) < 280){
+    delay(200);
     if (contador >= 1){
           lcd_1.clear();
           contador--;
@@ -211,7 +209,7 @@ void loop() {
   
   // para no setear con un valor negativo o 0
   // BOTON SELECT
-  if (boton == "btnSelect"){
+  if (analogRead(A0) > 640 && analogRead(A0) < 668){
     if (contador > 0){
           contador2 = 0;
           calculo_tiempoSeg = contador * 60;
@@ -227,11 +225,11 @@ void loop() {
   }
   
   // Para eliminar el intevalo BOTON RIGHT
-  if (boton == "btnDerecha"){
+  if (analogRead(A0) > 0 && analogRead(A0) < 60){
       calculo_tiempoSeg = 0;
     }
   //LEFT(399 A 435)
-  if (boton == "btnIzquierda"){
+  if (analogRead(A0) > 399 && analogRead(A0) < 435){
   	digitalWrite(rele, HIGH);
     espera();
     digitalWrite(rele, LOW);
@@ -273,20 +271,3 @@ void espera(){
 	delay(900);
 }
 
-
-//Creamos una funcion que devuelva un texto de que boton se utilizo basandose en los rangos de los valores
-String botones_LCD(int buttonReply) {
-  String text;
-  Serial.println(buttonReply);
-  //if (buttonReply < 60) text = "btnDerecha";
-  if (buttonReply > 0 && buttonReply < 60) text = "btnDerecha";
-  //if (buttonReply > 99 && buttonReply < 127)text = "btnArriba";
-  if (buttonReply > 99 && buttonReply < 127) text = "btnArriba";
-  //if (buttonReply > 255 && buttonReply < 280)  text = "btnAbajo";
-  if (buttonReply > 255 && buttonReply < 280) text = "btnAbajo";
-  // if (buttonReply > 399 && buttonReply < 435)  text = "btnIzquierda";
-  if (buttonReply > 399 && buttonReply < 435) text = "btnIzquierda";
-  // if (buttonReply > 640 && buttonReply < 668)  text = "btnSelect";
-  if (buttonReply > 640 && buttonReply < 668) text = "btnSelect";
-  return text;
-}
